@@ -17,16 +17,15 @@ model User {
   name String 
   email String @unique
   role Role @default(BASIC)
-  preferences Json
   writtenPosts Post[] @relation("WrittenPosts")
   favoritePosts Post[] @relation("FavoritePosts")
-  userPreference userPreference?
+  userPreference UserPreference?
 
   @@unique([age, name])
   @@index([email])
 }
 
-model userPreference {
+model UserPreference {
   id String @id @default(uuid())
   emailUpdates Boolean
   user User @relation(fields: [userId], references: [id])
@@ -36,7 +35,7 @@ model userPreference {
 model Post {
   id String @id @default(uuid())
   title String
-  avarageRating Float
+  averageRating Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author User        @relation("WrittenPosts", fields: [authorId], references: [id])
